@@ -1,1 +1,7 @@
 .vs
+*.user
+*.suo
+CTI.M280/CTI.M280/bin/
+CTI.M280/CTI.M280/obj/
+WinformM280/bin/
+WinformM280/obj/
