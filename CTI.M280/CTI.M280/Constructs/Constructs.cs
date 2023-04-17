@@ -6,6 +6,8 @@
         public const string SWver = "3.02.00";
         public const string ProName = "M280 DLL";
         public const ushort USB_PID = 0x0280;
+        public const ushort USB3_PID = 0x0282;
+
         public const ushort USB_VID = 0x28A6;
         public const byte CMD_ST_CAP = 0xDA;
         public const byte CMD_SET_ILLUMIN = 0xE0;

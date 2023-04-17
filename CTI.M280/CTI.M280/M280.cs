@@ -146,7 +146,7 @@ namespace CompiledTechnologies.Devices
         }
         public void Resume()
         {
-           Open();
+            Open();
         }
         public void Suspend()
         {
@@ -195,8 +195,10 @@ namespace CompiledTechnologies.Devices
         }
         private void InitializeScanner()
         {
-            if (usbdevices == null || usbdevices.Count == 0) { return; }
             usbdevice = usbdevices[M280DEF.USB_VID, M280DEF.USB_PID] as CyUSBDevice;
+            if (usbdevice == null)
+                usbdevice = usbdevices[M280DEF.USB_VID, M280DEF.USB3_PID] as CyUSBDevice;
+
             if (usbdevice == null)
             {
                 devicebusy = false;
@@ -394,7 +396,7 @@ namespace CompiledTechnologies.Devices
         {
             if (ReceiveData == null) { return; }
             ReceiveData.Invoke(this, new DataReceivedArgs { DL = dlfile });
-            capture.Start();
+            // capture.Start();
         }
         private void onDeviceAttched(EventArgs e)
         {
@@ -544,7 +546,7 @@ namespace CompiledTechnologies.Devices
                 e.GetBaseException();
                 dispatcher.Invoke(handleException);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 System.Console.Out.WriteLine(ex.ToString());
             }
@@ -555,7 +557,7 @@ namespace CompiledTechnologies.Devices
             CyIsocEndPoint InEndpt = usbdevice.IsocInEndPt;
 
 
-            cBufs[j] = new byte[CyConst.SINGLE_XFER_LEN + bulkendpoint.MaxPktSize + ((bulkendpoint.XferMode == XMODE.BUFFERED) ? buffersize : 0) ];
+            cBufs[j] = new byte[CyConst.SINGLE_XFER_LEN + bulkendpoint.MaxPktSize + ((bulkendpoint.XferMode == XMODE.BUFFERED) ? buffersize : 0)];
 
             xBufs[j] = new byte[buffersize];
             oLaps[j] = new byte[20];
@@ -591,7 +593,7 @@ namespace CompiledTechnologies.Devices
                 fixed (byte* tmpOvlap = oLaps[k])
                 {
                     OVERLAPPED* ovLapStatus = (OVERLAPPED*)tmpOvlap;
-                    if (!bulkendpoint.WaitForXfer(ovLapStatus->hEvent, 500))
+                    if (!bulkendpoint.WaitForXfer(ovLapStatus->hEvent, 1000))
                     {
                         bulkendpoint.Abort();
                         PInvoke.WaitForSingleObject(ovLapStatus->hEvent, 500);

@@ -89,10 +89,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CyUSB">
-      <HintPath>..\..\lib\CyUSB.dll</HintPath>
+      <HintPath>..\..\libs\CyUSB.dll</HintPath>
     </Reference>
-    <Reference Include="dlplib">
-      <HintPath>..\..\lib\dlplib.dll</HintPath>
+    <Reference Include="IDScanNet.dlplib">
+      <HintPath>..\..\libs\IDScanNet.dlplib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
